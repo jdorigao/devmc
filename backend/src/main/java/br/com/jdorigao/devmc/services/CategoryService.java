@@ -2,6 +2,7 @@ package br.com.jdorigao.devmc.services;
 
 import br.com.jdorigao.devmc.entities.Category;
 import br.com.jdorigao.devmc.repositories.CategoryRepository;
+import br.com.jdorigao.devmc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,6 @@ public class CategoryService {
 
     public Category find(Integer id) {
         Optional<Category> obj = categoryRepository.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Object not found! Id: " + id + ", Type: " + Category.class.getName()));
     }
 }
