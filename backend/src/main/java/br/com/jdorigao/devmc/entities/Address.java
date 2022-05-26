@@ -6,7 +6,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "tb_address")
 public class Address implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +39,7 @@ public class Address implements Serializable {
         this.district = district;
         this.cep = cep;
         this.client = client;
-        this.city = city;
+        this.setCity(city);
     }
 
     public Integer getId() {
