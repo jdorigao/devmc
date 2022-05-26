@@ -1,6 +1,7 @@
 package br.com.jdorigao.devmc.entities;
 
 import br.com.jdorigao.devmc.entities.enums.TypeClient;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -32,6 +33,7 @@ public class Client implements Serializable {
     @CollectionTable(name = "tb_phone")
     private Set<String> phones = new HashSet<>();
 
+    @JsonBackReference
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 

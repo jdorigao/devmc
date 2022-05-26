@@ -1,6 +1,7 @@
 package br.com.jdorigao.devmc.entities;
 
 import br.com.jdorigao.devmc.entities.enums.StatePayment;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -11,7 +12,10 @@ import java.util.Date;
 public class PaymentWithBoleto extends Payment {
     private static final long serialVersionUID = 1L;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dueDate;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date paymentDate;
 
     public PaymentWithBoleto() {
