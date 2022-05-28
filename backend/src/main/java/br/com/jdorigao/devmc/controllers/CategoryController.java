@@ -1,5 +1,6 @@
 package br.com.jdorigao.devmc.controllers;
 
+import br.com.jdorigao.devmc.dto.CategoryDTO;
 import br.com.jdorigao.devmc.entities.Category;
 import br.com.jdorigao.devmc.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/categories")
@@ -40,5 +42,12 @@ public class CategoryController {
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         categoryService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CategoryDTO>> findAll() {
+        List<Category> list = categoryService.findAll();
+        List<CategoryDTO> listDTO = list.stream().map(obj -> new CategoryDTO(obj)).collect(java.util.stream.Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
     }
 }
