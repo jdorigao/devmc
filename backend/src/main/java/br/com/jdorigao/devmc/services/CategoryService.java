@@ -1,5 +1,6 @@
 package br.com.jdorigao.devmc.services;
 
+import br.com.jdorigao.devmc.dto.CategoryDTO;
 import br.com.jdorigao.devmc.entities.Category;
 import br.com.jdorigao.devmc.repositories.CategoryRepository;
 import br.com.jdorigao.devmc.services.exceptions.DataIntegrityException;
@@ -51,5 +52,9 @@ public class CategoryService {
     public Page<Category> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return categoryRepository.findAll(pageRequest);
+    }
+
+    public Category fromDTO(CategoryDTO objDTO) {
+        return new Category(objDTO.getId(), objDTO.getName());
     }
 }
