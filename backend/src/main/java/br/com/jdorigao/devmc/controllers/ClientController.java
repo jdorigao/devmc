@@ -1,6 +1,7 @@
 package br.com.jdorigao.devmc.controllers;
 
 import br.com.jdorigao.devmc.dto.ClientDTO;
+import br.com.jdorigao.devmc.dto.ClientNewDTO;
 import br.com.jdorigao.devmc.entities.Client;
 import br.com.jdorigao.devmc.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,12 @@ public class ClientController {
         Page<Client> list = clientService.findPage(page, linesPerPage, orderBy, direction);
         Page<ClientDTO> listDTO = list.map(obj -> new ClientDTO(obj));
         return ResponseEntity.ok().body(listDTO);
+    }
+
+    @PostMapping
+    public ResponseEntity<Client> insert(@Valid @RequestBody ClientNewDTO objDTO){
+        Client obj = clientService.fromDTO(objDTO);
+        obj = clientService.insert(obj);
+        return ResponseEntity.ok().body(obj);
     }
 }
