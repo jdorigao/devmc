@@ -1,12 +1,14 @@
 package br.com.jdorigao.devmc.dto;
 
 import br.com.jdorigao.devmc.entities.Client;
+import br.com.jdorigao.devmc.services.validation.ClientUpdate;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@ClientUpdate
 public class ClientDTO implements Serializable {
     public static final long serialVersionUID = 1L;
 
