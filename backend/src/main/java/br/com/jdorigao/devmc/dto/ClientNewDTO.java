@@ -1,22 +1,39 @@
 package br.com.jdorigao.devmc.dto;
 
-import javax.persistence.Column;
+import br.com.jdorigao.devmc.services.validation.ClientInsert;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@ClientInsert
 public class ClientNewDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @NotEmpty(message = "Name is required")
+    @Length(min = 5, max = 80, message = "Name must be between 5 and 80 characters")
     private String name;
+    @NotEmpty(message = "Email is required")
+    @Email(message = "Email is invalid")
     private String email;
+
+    @NotEmpty(message = "CPF or CNPJ is required")
     private String cpfOrCnpj;
     private Integer type;
 
+    @NotEmpty(message = "Public place is required")
     private String publicplace;
+
+    @NotEmpty(message = "Number is required")
     private String number;
     private String complement;
     private String district;
+
+    @NotEmpty(message = "Cep is required")
     private String cep;
 
+    @NotEmpty(message = "Phone is required")
     private String phone1;
     private String phone2;
     private String phone3;
