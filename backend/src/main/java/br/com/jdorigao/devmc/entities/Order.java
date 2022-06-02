@@ -38,6 +38,7 @@ public class Order implements Serializable {
     }
 
     public Order(Integer id, Date instant, Client client, Address deliveryAddress) {
+        super();
         this.id = id;
         this.instant = instant;
         this.client = client;

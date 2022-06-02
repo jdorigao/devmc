@@ -2,6 +2,7 @@ package br.com.jdorigao.devmc.entities;
 
 import br.com.jdorigao.devmc.entities.enums.StatePayment;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,6 +10,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "tb_payment_with_boleto")
+@JsonTypeName("paymentWithBoleto")
 public class PaymentWithBoleto extends Payment {
     private static final long serialVersionUID = 1L;
 

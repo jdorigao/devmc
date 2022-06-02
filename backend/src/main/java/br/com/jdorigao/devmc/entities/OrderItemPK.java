@@ -34,20 +34,32 @@ public class OrderItemPK implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        OrderItemPK that = (OrderItemPK) o;
-
-        if (!order.equals(that.order)) return false;
-        return product.equals(that.product);
-    }
-
-    @Override
     public int hashCode() {
-        int result = order.hashCode();
-        result = 31 * result + product.hashCode();
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((order == null) ? 0 : order.hashCode());
+        result = prime * result + ((product == null) ? 0 : product.hashCode());
         return result;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        OrderItemPK other = (OrderItemPK) obj;
+        if (order == null) {
+            if (other.order != null)
+                return false;
+        } else if (!order.equals(other.order))
+            return false;
+        if (product == null) {
+            if (other.product != null)
+                return false;
+        } else if (!product.equals(other.product))
+            return false;
+        return true;
     }
 }
