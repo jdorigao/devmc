@@ -33,6 +33,9 @@ public class OrderService {
     @Autowired
     private OrderItemRepository orderItemRepository;
 
+    @Autowired
+    private ClientService clientService;
+
     public Order find(Integer id) {
         Optional<Order> obj = orderRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Object not found! Id: " + id + ", Type: " + Order.class.getName()));
@@ -42,6 +45,7 @@ public class OrderService {
     public Order insert(Order obj) {
         obj.setId(null);
         obj.setInstant(new Date());
+        obj.setClient(clientService.find(obj.getClient().getId()));
         obj.getPayment().setState(StatePayment.PENDING);
         obj.getPayment().setOrder(obj);
         if (obj.getPayment() instanceof PaymentWithBoleto) {
@@ -52,7 +56,8 @@ public class OrderService {
         paymentRepository.save(obj.getPayment());
         for (OrderItem orderItem : obj.getItems()) {
             orderItem.setDiscount(0.0);
-            orderItem.setPrice(productService.find(orderItem.getProduct().getId()).getPrice());
+            orderItem.setProduct(productService.find(orderItem.getProduct().getId()));
+            orderItem.setPrice(orderItem.getProduct().getPrice());
             orderItem.setOrder(obj);
         }
         orderItemRepository.saveAll(obj.getItems());

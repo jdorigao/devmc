@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 @Entity
 @Table(name = "tb_order_item")
@@ -96,5 +98,17 @@ public class OrderItem implements Serializable {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        final StringBuffer sb = new StringBuffer();
+        sb.append(getProduct().getName());
+        sb.append(", quantity: ").append(getQuantity());
+        sb.append(", price: ").append(nf.format(getPrice()));
+        sb.append(", subTotal: ").append(nf.format(getSubTotal()));
+        sb.append('\n');
+        return sb.toString();
     }
 }
