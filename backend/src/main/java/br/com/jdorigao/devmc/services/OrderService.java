@@ -36,6 +36,9 @@ public class OrderService {
     @Autowired
     private ClientService clientService;
 
+    @Autowired
+    private EmailService emailService;
+
     public Order find(Integer id) {
         Optional<Order> obj = orderRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Object not found! Id: " + id + ", Type: " + Order.class.getName()));
@@ -61,6 +64,7 @@ public class OrderService {
             orderItem.setOrder(obj);
         }
         orderItemRepository.saveAll(obj.getItems());
+        emailService.sendOrderConfirmationHtmlEmail(obj);
         return obj;
     }
 }

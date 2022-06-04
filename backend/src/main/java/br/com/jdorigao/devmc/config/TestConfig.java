@@ -1,6 +1,8 @@
 package br.com.jdorigao.devmc.config;
 
 import br.com.jdorigao.devmc.services.DBService;
+import br.com.jdorigao.devmc.services.EmailService;
+import br.com.jdorigao.devmc.services.MockEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,5 +21,10 @@ public class TestConfig {
     public boolean instantiateDatabase() throws ParseException {
         dbService.instantiateTestDatabase();
         return true;
+    }
+
+    @Bean
+    public EmailService emailService() {
+        return new MockEmailService();
     }
 }
